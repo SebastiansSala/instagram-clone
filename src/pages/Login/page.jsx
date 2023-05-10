@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import LoginComponent from "./LoginComponent";
 import Logo from "./Logo";
-import LoginButton from "./LoginButton";
 import GoogleLoginButton from "./GoogleLoginButton";
 import Footer from "../Footer";
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 export default function Page() {
+
+  const [user, setUser] = useState(null);
+
   return (
     <div className="flex flex-col h-screen justify-center items-center pb-10 pt-20 transition-all duration-300">
       <div className="flex items-center h-full">
@@ -14,17 +18,13 @@ export default function Page() {
         </section>
         <div className="w-full flex flex-col items-center lg:border lg:w-96 lg:pb-5 lg:relative lg:-top-5">
           <Logo />
-          <GoogleLoginButton />
+          <GoogleLoginButton setUser={setUser} user={user}/>
           <div className="mb-4 flex gap-3">
             <div className="w-24 bg-gray-300 h-[.12rem] relative top-2" />
             <span className="text-xs text-gray-400">OR</span>
             <div className="w-24 bg-gray-300 h-[.12rem] relative top-2"></div>
           </div>
           <LoginComponent />
-          <div className="w-full text-right mr-44 md:mr-12">
-            <p className="text-blue-400 self-end mb-4 md:text-xl lg:text-base">Forgot password?</p>
-          </div>
-          <LoginButton />
           <p className="text-sm text-black md:text-xl lg:text-base">
             Don't have an account?{" "}
             <span className="text-blue-400 font-bold">Sign up</span>
